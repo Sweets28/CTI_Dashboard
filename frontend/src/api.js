@@ -4,13 +4,21 @@ const API = axios.create({
     baseURL: 'http://localhost:8000'
 })
 
+export const login = (username, password) => {
+    const formData = new URLSearchParams()
+    formData.append('username', username)
+    formData.append('password', password)
+    return API.post('/auth/login', formData)
+}
 export const getVulnerabilities = (skip=0, limit=20) => API.get(`/vulnerabilities?skip=${skip}&limit=${limit}`)
 export const getThreatActors = (skip=0, limit=20) => API.get(`/threat_actors?skip=${skip}&limit=${limit}`)
 export const getIndicators = (skip=0, limit=20) => API.get(`/indicators?skip=${skip}&limit=${limit}`)
 export const getVulnerabilitiesCount = () => API.get('/vulnerabilities/count')
 export const getVulnerability = (cve_id) => API.get(`/vulnerabilities/${cve_id}`)
 export const getThreatActor = (stix_id) => API.get(`/threat_actors/${stix_id}`)
-
+export const getSeverityStats =() => API.get('vulnerabilities/stats/severity')
+export const getIndicatorTypes =() => API.get('/indicators/stats/types')
+export const getVulnerabilityTimeline = () => API.get('/vulnerabilities/stats/timeline')
 export const getThreatActorsCount = () => API.get('/threat_actors/count')
 export const getIndicatorsCount = () => API.get('/indicators/count')
 export const ingestNVD = () => API.post('/ingest/nvd')

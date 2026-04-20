@@ -4,7 +4,7 @@ from app.routers import threats
 from contextlib import asynccontextmanager
 from app.scheduler import start_scheduler, scheduler
 from fastapi.middleware.cors import CORSMiddleware
-
+from app.routers import auth_router
 
 
 
@@ -27,3 +27,4 @@ app.add_middleware(
 Base.metadata.create_all(bind=engine)
 
 app.include_router(threats.router)
+app.include_router(auth_router.router, prefix="/auth")

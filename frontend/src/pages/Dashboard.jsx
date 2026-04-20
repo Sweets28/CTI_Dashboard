@@ -3,6 +3,12 @@ import { getVulnerabilities, ingestNVD, ingestMitre, ingestOTX, getVulnerabiliti
 import MetricCard from '../components/MetricCard'
 import ThreatFeed from '../components/ThreatFeed'
 import Pagination from '../components/Pagination'
+import SeverityChart from '../components/SeverityChart'
+import IndicatorChart from '../components/BarChart'
+import TimelineChart from '../components/TimelineChart'
+import { getSeverityStats } from '../api'
+import { getIndicatorTypes } from '../api'
+import { getVulnerabilityTimeline } from '../api'
 
 const Dashboard = () => {
   const [vulnerabilities, setVulnerabilities] = useState([])
@@ -12,6 +18,9 @@ const Dashboard = () => {
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
   const LIMIT = 20
+  const [severityData, setSeverityData] = useState([])
+  const [indicatorTypes, setIndicatorTypes] = useState([])
+  const [VulnerabilityTimeline, setVulnerabilityTimeline] = useState([])
   
   // Refresh counts and total pages
   const refreshStats = () => {
@@ -25,6 +34,24 @@ const Dashboard = () => {
 
   useEffect(() => {
     refreshStats();
+  }, [])
+
+  useEffect(() => {
+    getIndicatorTypes()
+    .then(res => setIndicatorTypes(res.data))
+    .catch(err => console.error(err))
+  }, [])
+
+  useEffect(() => {
+    getSeverityStats()
+      .then(res => setSeverityData(res.data))
+      .catch(err => console.error(err))
+  }, [])
+
+  useEffect(() => {
+    getVulnerabilityTimeline()
+    .then(res => setVulnerabilityTimeline(res.data))
+    .catch(err => console.error(err))
   }, [])
 
   useEffect(() => {
@@ -134,6 +161,15 @@ const Dashboard = () => {
             />
         </div>
       </div>
+      <div className="grid grid-cols-2 gap-6 rounded-lg">
+        <SeverityChart data={severityData}/>
+        <IndicatorChart data={indicatorTypes}/>
+      </div>
+        <div className="grid grid-cols-3 gap-6 rounded-lg">
+        <div className="col-span-2 gap-6 rounded-lg">
+          <TimelineChart data={VulnerabilityTimeline}/>
+          </div>
+        </div>
 
       <footer className="text-center opacity-30 font-mono text-[9px] tracking-widest uppercase">
         Terminal_Session_Active // Node_ID: {Math.random().toString(36).substring(7).toUpperCase()}

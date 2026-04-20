@@ -41,7 +41,9 @@ const ThreatFeed =({ vulnerabilities }) => {
                             </span>
                             </td>
                             <td className="p-3 text-sm font-mono text-gray-300">{v.cvss_score}</td>
-                            <td className="p-3 text-sm font-mono text-gray-300">{v.description}</td>
+                            <td className="p-3 text-sm font-mono text-gray-300 max-w-xs truncate">
+                            {v.description}
+                            </td>
                             <td className="p-3 text-sm font-mono text-gray-300">{v.source}</td>
                         </tr>
                     ))}

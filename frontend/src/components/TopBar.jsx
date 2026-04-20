@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 
 const TopBar = () => {
     const [time, setTime] = useState('')
+    const navigate = useNavigate()
+
+    const handleLogout = () => {
+        localStorage.removeItem('token')
+        navigate("/login")
+    }
 
     useEffect(() => {
         const tick = () =>{
@@ -22,6 +29,12 @@ const TopBar = () => {
                 <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
                 <span className="font-mono text-green-400 text-xs">LIVE</span>
                 <span className="font-mono text-gray-500 text-xs">{time}</span>
+                <button
+                    onClick={handleLogout}
+                    className="font-mono text-xs px-3 py-1 border border-red-900 text-red-400 hover:bg-red-900/20 rounded"
+                >
+                    LOGOUT
+                </button>
             </div>
         </div>
     )

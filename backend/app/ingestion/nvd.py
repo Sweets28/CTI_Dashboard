@@ -1,15 +1,31 @@
 import httpx 
 from sqlalchemy.orm import Session
 from app.models.threat import Vulnerability
-from datetime import datetime
+from datetime import datetime, timedelta
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 
 
 def fetch_nvd_cves(db: Session):
+    headers = {}
     vulnerabilities = []
+    api_key = os.getenv("NVD_API_KEY")
+    if api_key:
+        headers["apiKey"] = api_key
+    end_date = datetime.utcnow()
+    start_date = end_date - timedelta(days=30)
     url = "https://services.nvd.nist.gov/rest/json/cves/2.0"
-    request = httpx.get(url)
+    params = {
+        "pubStartDate": start_date.strftime("%Y-%m-%dT%H:%M:%S.000"),
+        "pubEndDate": end_date.strftime("%Y-%m-%dT%H:%M:%S.000"),
+    }
+    request = httpx.get(url, params=params, timeout=60.0)
     data = request.json()
+    print("Total results:", data.get("totalResults"))
+    print("First CVE:", data["vulnerabilities"][0]["cve"]["id"] if data.get("vulnerabilities") else "none")
     vulnerabilities = data["vulnerabilities"]
     for item in vulnerabilities:
         cve = item["cve"]

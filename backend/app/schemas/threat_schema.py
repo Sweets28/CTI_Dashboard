@@ -54,7 +54,6 @@ class VulnerabilityResponse(VulnerabilityBase):
 
 class ThreatActorResponse(ThreatActorBase):
     id: int
-    # ADD THESE TWO LINES SO THEY SHOW UP IN THE API
     techniques: List[TechniqueSchema] = []
     software: List[SoftwareSchema] = []
 
