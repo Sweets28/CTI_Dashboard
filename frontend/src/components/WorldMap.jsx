@@ -5,9 +5,16 @@ import * as topojson from 'topojson-client'
 const WorldMap = ({ data }) => {
   const svgRef = useRef(null)
 
-  useEffect(() => {
-    if (!data || data.length === 0) return
-
+useEffect(() => {
+    if (!svgRef.current) return
+    console.log('WorldMap rendering, data:', data)
+    console.log('svgRef:', svgRef.current)
+    
+    d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+      .then(world => {
+        console.log('World atlas loaded:', world)
+      })
+      .catch(err => console.error('Failed to load world atlas:', err))
     const countryMap = {}
     data.forEach(d => { countryMap[d.country.toLowerCase()] = d.count })
 
