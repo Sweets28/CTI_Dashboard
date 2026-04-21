@@ -24,6 +24,8 @@ def fetch_taxii_indicators(db: Session):
             break  # no more pages
             
         for pulse in results:
+            countries = pulse.get("targeted_countries", [])
+            print(f"Pulse: {pulse.get('name')} | Countries: {countries}")
             # country stats
             for country in pulse.get("targeted_countries", []):
                 existing = db.query(CountryStat).filter_by(country=country).first()
