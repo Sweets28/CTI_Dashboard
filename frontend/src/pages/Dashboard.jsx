@@ -49,7 +49,7 @@ const Dashboard = () => {
   useEffect(() => {
     getCountryStats()
     .then(res => setCountryData(res.data))
-    catch(err => console.error(err))
+    .catch(err => console.error(err))
   }, [])
 
   useEffect(() => {
