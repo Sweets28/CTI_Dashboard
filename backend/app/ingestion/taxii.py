@@ -14,9 +14,9 @@ def fetch_taxii_indicators(db: Session):
     data = response.json()
     seen = set()
     page = 1
-    max_pages = 10
+    max_pages = 5
     while page <= max_pages:
-        response = httpx.get(url, headers=headers, params={"page": page}, timeout=30.0)
+        response = httpx.get(url, headers=headers, params={"page": page}, timeout=60.0)
         data = response.json()
         
         results = data.get("results", [])
