@@ -19,7 +19,13 @@ actor_software = Table(
     Column("software_id", Integer, ForeignKey("software.id"), primary_key=True),
 )
 
-
+class CountryStat(Base):
+    __tablename__ = "country_stats"
+    id = Column(Integer, primary_key=True)
+    country = Column(String)
+    count = Column(Integer, default=1)
+    last_seen = Column(DateTime)
+    source = Column(String)
 
 class Vulnerability(Base):
     __tablename__ = "vulnerabilities"

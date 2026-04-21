@@ -65,7 +65,11 @@ def get_indicator_types(db: Session = Depends(get_db)):
     return [{"type": r[0], "count": r[1]} for r in results]
 
 
-
+@router.get("/stats/countries")
+def get_country_stats(db: Sesion = Depens(get_db)):
+    from app.models.threat import CountryStat
+    results = db.query(CountryStat).order_by(CountryStat.count.desc()).all()
+    return [{"country": r.country, "count": r.count} for r in results]
 
 @router.get("/threat_actors/{stix_id}", response_model=ThreatActorResponse)
 def get_threat_actor(stix_id: str, db: Session = Depends(get_db)):

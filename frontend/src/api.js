@@ -14,6 +14,7 @@ export const getVulnerabilities = (skip=0, limit=20) => API.get(`/vulnerabilitie
 export const getThreatActors = (skip=0, limit=20) => API.get(`/threat_actors?skip=${skip}&limit=${limit}`)
 export const getIndicators = (skip=0, limit=20) => API.get(`/indicators?skip=${skip}&limit=${limit}`)
 export const getVulnerabilitiesCount = () => API.get('/vulnerabilities/count')
+export const getCountryStats = () => API.get("/stats/countries")
 export const getVulnerability = (cve_id) => API.get(`/vulnerabilities/${cve_id}`)
 export const getThreatActor = (stix_id) => API.get(`/threat_actors/${stix_id}`)
 export const getSeverityStats =() => API.get('vulnerabilities/stats/severity')

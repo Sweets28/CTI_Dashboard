@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from app.models.threat import Indicator
+from app.models.threat import Indicator, CountryStat
 from datetime import datetime
 from dotenv import load_dotenv
 import httpx
@@ -36,4 +36,16 @@ def fetch_taxii_indicators(db: Session):
                 source="OTX"
             )
             db.add(indicator)
+        for country in pulse.get("targeted_countries", []):
+            existing = db.query(CountryStat).filter_by(country=country).first()
+            if existing:
+                existing.count += 1
+                existing.last_seen = datetime.utcnow()
+            else:
+                db.add(CountryStat(
+                    country=country,
+                    count=1,
+                    last_seen=datetime.utcnow(),
+                    source="OTX"
+                    ))
     db.commit()

@@ -9,6 +9,10 @@ import TimelineChart from '../components/TimelineChart'
 import { getSeverityStats } from '../api'
 import { getIndicatorTypes } from '../api'
 import { getVulnerabilityTimeline } from '../api'
+import WorldMap from '../components/WorldMap'
+import { getCountryStats } from '../api'
+
+
 
 const Dashboard = () => {
   const [vulnerabilities, setVulnerabilities] = useState([])
@@ -21,7 +25,7 @@ const Dashboard = () => {
   const [severityData, setSeverityData] = useState([])
   const [indicatorTypes, setIndicatorTypes] = useState([])
   const [VulnerabilityTimeline, setVulnerabilityTimeline] = useState([])
-  
+  const [countryData, setCountryData] = useState([])  
   // Refresh counts and total pages
   const refreshStats = () => {
     getVulnerabilitiesCount()
@@ -40,6 +44,12 @@ const Dashboard = () => {
     getIndicatorTypes()
     .then(res => setIndicatorTypes(res.data))
     .catch(err => console.error(err))
+  }, [])
+  
+  useEffect(() => {
+    getCountryStats()
+    .then(res => setCountryData(res.data))
+    catch(err => console.error(err))
   }, [])
 
   useEffect(() => {
@@ -170,6 +180,7 @@ const Dashboard = () => {
           <TimelineChart data={VulnerabilityTimeline}/>
           </div>
         </div>
+        <WorldMap data={countryData}/>
 
       <footer className="text-center opacity-30 font-mono text-[9px] tracking-widest uppercase">
         Terminal_Session_Active // Node_ID: {Math.random().toString(36).substring(7).toUpperCase()}
