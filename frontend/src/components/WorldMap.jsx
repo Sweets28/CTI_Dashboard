@@ -76,3 +76,4 @@ const WorldMap = ({ data }) => {
 }
 
 export default WorldMap
+
