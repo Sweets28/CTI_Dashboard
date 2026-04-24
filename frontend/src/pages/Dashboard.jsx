@@ -171,16 +171,16 @@ const Dashboard = () => {
             />
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-6 rounded-lg">
+      <div className="grid grid-cols-3 gap-6 rounded-lg">
         <SeverityChart data={severityData}/>
         <IndicatorChart data={indicatorTypes}/>
+          <TimelineChart data={VulnerabilityTimeline}/>
       </div>
         <div className="grid grid-cols-3 gap-6 rounded-lg">
         <div className="col-span-2 gap-6 rounded-lg">
-          <TimelineChart data={VulnerabilityTimeline}/>
+        <WorldMap data={countryData}/>
           </div>
         </div>
-        <WorldMap data={countryData}/>
 
       <footer className="text-center opacity-30 font-mono text-[9px] tracking-widest uppercase">
         Terminal_Session_Active // Node_ID: {Math.random().toString(36).substring(7).toUpperCase()}

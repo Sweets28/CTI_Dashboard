@@ -31,7 +31,7 @@ const SeverityChart =({ data }) => {
                     ))}
                 </Pie>
                     <Tooltip contentStyle={{background: "#111827", border: '1px solid #1f2937', fontFamily: 'monospace', fontSize: '12px'}}/>
-                    <Legend formatter={(value) => <span style={{ fontFamily: 'monospace', fontSize: '11px', color: '#9ca3af'}}>{value}</span>}/>
+                    <Legend layout="vertical" verticalAlign='middle' align='right' formatter={(value) => <span style={{ fontFamily: 'monospace', fontSize: '11px', color: '#9ca3af'}}>{value}</span>}/>
             </PieChart>
         </div>
     )
