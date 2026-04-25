@@ -27,7 +27,7 @@ const WorldMap = ({ data }) => {
     keepAspectRatio: true,
     legend: 'none', // We'll keep your custom CSS legend below
     tooltip: { 
-      textStyle: { color: '#00ff88', fontName: 'monospace' },
+      textStyle: { color: '#006400', fontName: 'monospace' },
       showColorCode: true 
     },
   };
