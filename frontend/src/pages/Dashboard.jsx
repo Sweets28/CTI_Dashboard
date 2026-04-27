@@ -139,6 +139,13 @@ const Dashboard = () => {
           >
             {ingesting ? '>_ INGESTING' : '>_ OTX_SYNC'}
           </button>
+          <button 
+            onClick={() => handleIngest(ingestTelegram)} 
+            disabled={ingesting}
+            className="flex-1 font-mono text-[10px] px-3 py-2 rounded border border-purple-900 text-purple-400 hover:bg-purple-900/20 transition-all disabled:opacity-30"
+          >
+            {ingesting ? '>_ INGESTING' : '>_ TELEGRAM_SYNC'}
+          </button>
         </div>
 
         <div className="relative w-full">

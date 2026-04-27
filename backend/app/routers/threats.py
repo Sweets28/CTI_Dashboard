@@ -7,7 +7,7 @@ from typing import List
 from app.ingestion.nvd import fetch_nvd_cves
 from app.ingestion.mitre import fetch_and_map_mitre
 from app.ingestion.taxii import fetch_taxii_indicators
-
+from app.ingestion.telegram_ingestion import fetch_telegram_iocs
 
 router = APIRouter()
 
@@ -96,6 +96,10 @@ def get_vulnerability(cve_id: str, db: Session = Depends(get_db)):
 
 
 
+@router.post("/ingest/telegram")
+def ingest_telegram(db: Session = Depends(get_db)):
+    fetch_telegram_iocs(db)
+    return {"message": "Telegram ingestion complete"}
 
 @router.post("/ingest/nvd")
 def ingest_nvd(db: Session = Depends(get_db)):
